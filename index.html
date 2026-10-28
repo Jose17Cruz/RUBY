@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f5">
+  <meta name="description" content="Unas preguntas bonitas para conocernos un poquito más.">
+  <title>Unas preguntas para ti ♡</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #49363a;
+      --muted: #866f73;
+      --rose: #bd7180;
+      --rose-dark: #995565;
+      --paper: #fffdfc;
+      --line: #eadbdd;
+      --blush: #fff1f0;
+      --wine: #704650;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      margin: 0;
+      padding: 56px 18px;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 8% 12%, #f7dfe3 0, transparent 30%),
+        radial-gradient(ellipse at 92% 84%, #f5e1d8 0, transparent 32%),
+        radial-gradient(ellipse at 50% 45%, #fff 0, transparent 62%),
+        #fff8f6;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .falling-hearts {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .falling-hearts span {
+      position: absolute;
+      top: -10vh;
+      left: var(--left);
+      color: #c65e75;
+      font-size: var(--size);
+      opacity: 0;
+      line-height: 1;
+      text-shadow: 0 2px 9px rgba(153, 85, 101, .25);
+      animation: heart-fall var(--duration) linear var(--delay) infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes heart-fall {
+      0% { opacity: 0; transform: translate3d(0, -5vh, 0) rotate(-15deg) scale(.8); }
+      10% { opacity: .7; }
+      85% { opacity: .58; }
+      100% { opacity: 0; transform: translate3d(var(--drift), 115vh, 0) rotate(35deg) scale(1.15); }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 720px);
+      margin: 0 auto;
+      padding: clamp(26px, 6vw, 58px);
+      border: 1px solid rgba(189, 113, 128, .28);
+      border-radius: 28px;
+      background: rgba(255, 253, 252, .86);
+      box-shadow: 0 28px 90px rgba(111, 68, 75, .18), 0 2px 8px rgba(111, 68, 75, .05);
+      backdrop-filter: blur(8px);
+    }
+
+    header { text-align: center; }
+
+    .eyebrow {
+      display: table;
+      margin: 18px auto 0;
+      padding: 7px 13px;
+      border: 1px solid #f1d9dc;
+      border-radius: 999px;
+      color: var(--rose-dark);
+      background: rgba(255, 245, 244, .9);
+      font: 600 .72rem/1.2 Arial, sans-serif;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .heart {
+      display: inline-grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--rose-dark);
+      background: var(--blush);
+      box-shadow: 0 0 0 8px rgba(255, 241, 240, .7);
+      font-size: 28px;
+      animation: heart-glow 2.8s ease-in-out infinite;
+    }
+
+    @keyframes heart-glow {
+      50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(255, 241, 240, .35); }
+    }
+
+    h1 {
+      margin: 13px 0 10px;
+      color: var(--wine);
+      font-size: clamp(2rem, 7vw, 3rem);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    .intro {
+      max-width: 490px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .divider {
+      width: 64px;
+      height: 1px;
+      margin: 30px auto;
+      background: linear-gradient(90deg, transparent, #d9aab1, transparent);
+    }
+
+    form { display: grid; gap: 15px; }
+
+    fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 17px 18px;
+      border: 1px solid rgba(234, 219, 221, .8);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .76);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+
+    fieldset:focus-within {
+      border-color: #dfb4bb;
+      box-shadow: 0 5px 18px rgba(153, 85, 101, .07);
+    }
+
+    legend, .question-label {
+      display: block;
+      margin-bottom: 11px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .number {
+      display: inline-grid;
+      width: 27px;
+      height: 27px;
+      margin-right: 7px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--rose-dark);
+      background: var(--blush);
+      font-family: Arial, sans-serif;
+      font-size: .78rem;
+      vertical-align: 2px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      color: var(--ink);
+      background: #fffdfc;
+      font: 1rem/1.5 Arial, sans-serif;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    textarea { min-height: 92px; resize: vertical; }
+
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(189, 113, 128, .14);
+    }
+
+    input::placeholder, textarea::placeholder { color: #ae9b9e; }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: .94rem;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+
+    .choice:hover { transform: translateY(-1px); border-color: #d9aab1; }
+
+    .choice:has(input:checked) {
+      border-color: #d59aa4;
+      background: var(--blush);
+    }
+
+    .choice input { accent-color: var(--rose-dark); }
+
+    .closing {
+      padding: 23px;
+      border: 1px solid #edcdd2;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff0ef, #fff9f8 65%, #fff3f4);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+    }
+
+    .closing .question-label { color: var(--wine); }
+    .closing .choices { margin: 12px 0 18px; }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font: .9rem/1.6 Arial, sans-serif;
+    }
+
+    button {
+      min-height: 52px;
+      margin-top: 4px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--rose-dark);
+      box-shadow: 0 9px 22px rgba(153, 85, 101, .24);
+      cursor: pointer;
+      font: 600 1rem Arial, sans-serif;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+
+    button:hover {
+      background: #824654;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(153, 85, 101, .3);
+    }
+    button:focus-visible { outline: 3px solid #d59aa4; outline-offset: 3px; }
+
+    footer {
+      margin-top: 25px;
+      color: #9a8588;
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 20px 12px; }
+      .card { border-radius: 18px; }
+      .choice { flex: 1 1 auto; }
+      fieldset { padding: 15px; }
+      .closing { padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .falling-hearts span {
+        top: var(--rest-top);
+        opacity: .42;
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="falling-hearts" aria-hidden="true">
+    <span style="--left: 4%; --size: 25px; --duration: 9s; --delay: -2s; --drift: 45px; --rest-top: 12vh;">♡</span>
+    <span style="--left: 14%; --size: 20px; --duration: 11s; --delay: -7s; --drift: -35px; --rest-top: 27vh;">♥</span>
+    <span style="--left: 24%; --size: 29px; --duration: 10s; --delay: -4s; --drift: 38px; --rest-top: 43vh;">♡</span>
+    <span style="--left: 34%; --size: 18px; --duration: 12s; --delay: -10s; --drift: -42px; --rest-top: 61vh;">♡</span>
+    <span style="--left: 44%; --size: 24px; --duration: 9s; --delay: -6s; --drift: 32px; --rest-top: 76vh;">♥</span>
+    <span style="--left: 55%; --size: 19px; --duration: 11s; --delay: -3s; --drift: -30px; --rest-top: 18vh;">♡</span>
+    <span style="--left: 65%; --size: 28px; --duration: 10s; --delay: -9s; --drift: 40px; --rest-top: 36vh;">♡</span>
+    <span style="--left: 75%; --size: 21px; --duration: 12s; --delay: -5s; --drift: -36px; --rest-top: 54vh;">♥</span>
+    <span style="--left: 85%; --size: 26px; --duration: 9s; --delay: -11s; --drift: 34px; --rest-top: 70vh;">♡</span>
+    <span style="--left: 95%; --size: 20px; --duration: 11s; --delay: -1s; --drift: -44px; --rest-top: 86vh;">♡</span>
+  </div>
+  <main class="card">
+    <header>
+      <span class="heart" aria-hidden="true">♡</span>
+      <p class="eyebrow">Una invitación especial</p>
+      <h1>Unas preguntas para ti</h1>
+      <p class="intro">Me gustaría conocerte un poquito más. Responde con calma y con toda confianza; no hay respuestas correctas ni incorrectas.</p>
+      <div class="divider" aria-hidden="true"></div>
+    </header>
+
+    <form action="https://formsubmit.co/joseantoniocruzgutierrez160@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Una respuesta a tus preguntas ♡">
+      <input type="hidden" name="_template" value="table">
+
+      <fieldset>
+        <legend><span class="number">1</span>¿Cómo eres cuando tienes mucha confianza con alguien?</legend>
+        <textarea name="1. Como eres cuando tienes confianza" placeholder="Cuéntame un poquito..." required></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">2</span>¿Qué cosas te ponen de buenas incluso cuando tienes un mal día?</legend>
+        <input type="text" name="2. Cosas que te ponen de buenas" placeholder="Por ejemplo: música, una comida, una persona..." required>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">3</span>¿Qué te gusta hacer cuando tienes tiempo solo para ti?</legend>
+        <textarea name="3. Tiempo para ti" placeholder="Lo que más disfrutas..." required></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">4</span>¿Eres más de salir y conocer lugares o de quedarte en casa disfrutando de la tranquilidad?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="4. Plan favorito" value="Salir y conocer lugares" required> Salir y conocer lugares</label>
+          <label class="choice"><input type="radio" name="4. Plan favorito" value="Quedarme en casa"> Quedarme en casa</label>
+          <label class="choice"><input type="radio" name="4. Plan favorito" value="Depende del día"> Depende del día</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">5</span>¿Qué tipo de personas te hacen sentir cómoda desde el primer momento?</legend>
+        <textarea name="5. Personas que te hacen sentir comoda" placeholder="¿Qué cualidades te transmiten confianza?" required></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">6</span>¿Qué pequeño detalle puede alegrarte todo el día?</legend>
+        <input type="text" name="6. Pequeno detalle que alegra tu dia" placeholder="Un gesto, unas palabras, una sorpresa..." required>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">7</span>¿Qué es algo que te gusta mucho y que casi nadie sabe de ti?</legend>
+        <textarea name="7. Algo que casi nadie sabe" placeholder="Solo si te apetece compartirlo..."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">8</span>¿Qué es lo primero que notas cuando conoces a alguien?</legend>
+        <input type="text" name="8. Lo primero que notas" placeholder="Su sonrisa, su forma de hablar..." required>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">9</span>¿Qué te hace reír de verdad?</legend>
+        <textarea name="9. Lo que te hace reir" placeholder="Personas, ocurrencias, anécdotas..." required></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">10</span>¿Cómo sería un día perfecto para ti?</legend>
+        <textarea name="10. Tu dia perfecto" placeholder="Descríbeme ese día ideal..." required></textarea>
+      </fieldset>
+
+      <section class="closing" aria-labelledby="closing-title">
+        <p class="question-label" id="closing-title"><span class="number">♡</span>Y una última pregunta, con toda sinceridad: ¿te llamé la atención y te gustaría volver a salir conmigo algún día?</p>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="11. Te llame la atencion y volverias a salir" value="Sí, me gustaría" required> Sí, me gustaría</label>
+          <label class="choice"><input type="radio" name="11. Te llame la atencion y volverias a salir" value="Tal vez, me gustaría conocerte más"> Tal vez, me gustaría conocerte más</label>
+          <label class="choice"><input type="radio" name="11. Te llame la atencion y volverias a salir" value="Prefiero que seamos amigos"> Prefiero que seamos amigos</label>
+          <label class="choice"><input type="radio" name="11. Te llame la atencion y volverias a salir" value="Prefiero decir que no"> Prefiero decir que no</label>
+        </div>
+        <label class="question-label" for="sinceridad">Si quieres, puedes contarme algo más. Valoro mucho tu sinceridad:</label>
+        <textarea id="sinceridad" name="12. Mensaje sincero" placeholder="Tu respuesta será recibida con cariño y respeto."></textarea>
+      </section>
+
+      <p class="note">Gracias por responder. No hay presión: lo más importante es que te sientas cómoda siendo sincera. ♡</p>
+      <button type="submit">Enviar mis respuestas ♡</button>
+    </form>
+
+    <footer>Hecho con cariño, solo para ti.</footer>
+  </main>
+</body>
+</html>
